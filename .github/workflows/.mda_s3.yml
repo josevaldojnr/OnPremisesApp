@@ -33,6 +33,7 @@ jobs:
           docker build -t mendix-rootfs:app -f rootfs-app.dockerfile .
           docker build -t mendix-rootfs:builder -f rootfs-builder.dockerfile .
           git clone -b master https://github.com/josevaldojnr/OnPremisesApp.git
+          ls -la
           python build.py --destination /tmp/image --source OnPremisesApp/OnPremisesApp.mda build-mda-dir
           docker build --tag on_premises_app:latest .
           docker save on_premises_app:latest > on_premises_app.tar
