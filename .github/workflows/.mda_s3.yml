@@ -25,6 +25,9 @@ jobs:
           ACCESS_KEY: "LtJeM4dfwVxTQMW9aWCB"
           SECRET_KEY: "Is2mlxK6LNSCyGLoDUGW7vYPTu3idgQQKWuMTmke"
 
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
       - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
@@ -46,6 +49,6 @@ jobs:
           git clone -b master https://github.com/josevaldojnr/OnPremisesApp.git
           python build.py --destination tmp/image --source OnPremisesApp/OnPremisesApp.mpr build-mda-dir
           docker build --tag on_premises_app:latest tmp/image
-          docker tag on_premises_app:latest > on_premises_app.tar
-          
+          docker tag on_premises_app:latest josevaldojnr/mendix_onpremise:latest
+          docker push josevaldojnr/mendix_onpremise:latest
           
