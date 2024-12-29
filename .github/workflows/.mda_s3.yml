@@ -17,6 +17,8 @@ jobs:
           
           git clone -b master https://github.com/josevaldojnr/OnPremisesApp.git
           ls -la
+          cd OnPremisesApp
+          ls -la
           python /OnPremisesApp/upload_to_s3.py
         env:
           MINIO_HOST: "dda9-2803-9810-4789-f910-5053-31bf-ce62-445f.ngrok-free.app"
