@@ -32,17 +32,12 @@ jobs:
         run: |
           docker build -t mendix-rootfs:app -f rootfs-app.dockerfile .
           docker build -t mendix-rootfs:builder -f rootfs-builder.dockerfile .
-      - name: Checkout OnPremisesApp repository
-        uses: actions/checkout@v2
-        with:
-          repository: 'josevaldojnr/OnPremisesApp.git'
-          ref: 'master'
-          
-      - name: Create image
-        run: |
+          git clone https://github.com/josevaldojnr/OnPremisesApp.git
+          git checkout origin master
           python build.py --destination /tmp/image --source OnPremisesApp/OnPremisesApp.mda build-mda-dir
           docker build --tag on_premises_app:latest .
           docker save on_premises_app:latest > on_premises_app.tar
+          
       - name: Upload Branch - MinioS3
         env:
           MINIO_HOST: "dda9-2803-9810-4789-f910-5053-31bf-ce62-445f.ngrok-free.app"
