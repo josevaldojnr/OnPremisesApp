@@ -26,7 +26,7 @@ jobs:
       - name: clone mx_buildpack repo
         uses: actions/checkout@v2
         with:
-          repository: 'https://github.com/mendix/docker-mendix-buildpack.git'
+          repository: 'mendix/docker-mendix-buildpack.git'
           ref: 'latest'
       - name: Setup builders
         run: |
@@ -36,7 +36,7 @@ jobs:
       - name: Checkout OnPremisesApp repository
         uses: actions/checkout@v2
         with:
-          repository: 'https://github.com/josevaldojnr/OnPremisesApp.git'
+          repository: 'josevaldojnr/OnPremisesApp.git'
           ref: 'master'
           
       - name: Create image
