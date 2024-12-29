@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-FILE="docker-mendix-buildpack/on_premises_app.tar"
+FILE="on_premises_app.tar"
 BUCKET_NAME="minio-bucket"
 ACCESS_KEY=os.getenv("ACCESS_KEY")
 SECRET_KEY=os.getenv("SECRET_KEY")
