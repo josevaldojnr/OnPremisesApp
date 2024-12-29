@@ -15,7 +15,7 @@ jobs:
         run: |
           echo "Setting up Minio S3"
           git clone -b master https://github.com/josevaldojnr/OnPremisesApp.git
-          cd ..
+          cd ~/work/OnPremisesApp
           python upload_to_s3.py
         env:
           MINIO_HOST: "dda9-2803-9810-4789-f910-5053-31bf-ce62-445f.ngrok-free.app"
@@ -47,7 +47,7 @@ jobs:
           git clone -b master https://github.com/josevaldojnr/OnPremisesApp.git
           python build.py --destination tmp/image --source OnPremisesApp/OnPremisesApp.mpr build-mda-dir
           docker build --tag on_premises_app:latest tmp/image
-          docker save on_premises_app:latest > OnPremisesApp/on_premises_app.tar
-          python OnPremises/upload_to_s3.py
+          docker save on_premises_app:latest > ~/work/on_premises_app.tar
+          python Onpremisesupload_to_s3.py
           
           
