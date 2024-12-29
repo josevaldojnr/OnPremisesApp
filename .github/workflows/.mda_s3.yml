@@ -11,19 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Docker login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_LOGIN }}
+          password: ${{ secrets.DOCKER_PW }}
       - name: SetupMinioS3
         run: |
           echo "Setting up Minio S3"
-
         env:
           MINIO_HOST: "dda9-2803-9810-4789-f910-5053-31bf-ce62-445f.ngrok-free.app"
           MINIO_PORT: "443"
           ACCESS_KEY: "LtJeM4dfwVxTQMW9aWCB"
           SECRET_KEY: "Is2mlxK6LNSCyGLoDUGW7vYPTu3idgQQKWuMTmke"
 
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
       - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
@@ -45,8 +46,6 @@ jobs:
           git clone -b master https://github.com/josevaldojnr/OnPremisesApp.git
           python build.py --destination tmp/image --source OnPremisesApp/OnPremisesApp.mpr build-mda-dir
           docker build --tag on_premises_app:latest tmp/image
-          docker save on_premises_app:latest > on_premises_app.tar
-          chmod a+x OnPremisesApp/upload_to_s3.py
-          python OnPremisesApp/upload_to_s3.py
+          docker tag on_premises_app:latest > on_premises_app.tar
           
           

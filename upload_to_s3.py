@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-FILE="on_premises_app.tar"
+FILE="upload_to_s3.py"
 BUCKET_NAME="minio-bucket"
 ACCESS_KEY=os.getenv("ACCESS_KEY")
 SECRET_KEY=os.getenv("SECRET_KEY")
