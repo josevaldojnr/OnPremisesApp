@@ -11,6 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: SetupMinioS3
+        run: echo "Setting up Minio S3"
+        env:
+          MINIO_HOST: "dda9-2803-9810-4789-f910-5053-31bf-ce62-445f.ngrok-free.app"
+          MINIO_PORT: "443"
+          ACCESS_KEY: "LtJeM4dfwVxTQMW9aWCB"
+          SECRET_KEY: "Is2mlxK6LNSCyGLoDUGW7vYPTu3idgQQKWuMTmke"
+
       - name: Checkout code
         uses: actions/checkout@v2
       
@@ -36,13 +44,6 @@ jobs:
           python build.py --destination tmp/image --source OnPremisesApp/OnPremisesApp.mpr build-mda-dir
           docker build --tag on_premises_app:latest tmp/image
           docker save on_premises_app:latest > on_premises_app.tar
-          
-      - name: Upload Branch - MinioS3
-        env:
-          MINIO_HOST: "dda9-2803-9810-4789-f910-5053-31bf-ce62-445f.ngrok-free.app"
-          MINIO_PORT: "443"
-          ACCESS_KEY: "LtJeM4dfwVxTQMW9aWCB"
-          SECRET_KEY: "Is2mlxK6LNSCyGLoDUGW7vYPTu3idgQQKWuMTmke"
-        run: |
-          cd ..
           python upload_to_s3.py
+          
+          
