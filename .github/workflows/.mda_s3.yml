@@ -45,7 +45,7 @@ jobs:
           git clone -b master https://github.com/josevaldojnr/OnPremisesApp.git
           python build.py --destination tmp/image --source OnPremisesApp/OnPremisesApp.mpr build-mda-dir
           docker build --tag on_premises_app:latest tmp/image
-          docker save on_premises_app:latest > ~/work/on_premises_app.tar
+          docker save on_premises_app:latest > on_premises_app.tar
           chmod a+x OnPremisesApp/upload_to_s3.py
           python OnPremisesApp/upload_to_s3.py
           
