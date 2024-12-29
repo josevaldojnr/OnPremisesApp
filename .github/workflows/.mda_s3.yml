@@ -30,7 +30,6 @@ jobs:
           ref: 'latest'
       - name: Setup builders
         run: |
-          cd docker-mendix-buildpack
           docker build -t mendix-rootfs:app -f rootfs-app.dockerfile .
           docker build -t mendix-rootfs:builder -f rootfs-builder.dockerfile .
       - name: Checkout OnPremisesApp repository
