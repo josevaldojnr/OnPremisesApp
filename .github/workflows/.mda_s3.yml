@@ -1,0 +1,55 @@
+name: Send MDA to S3
+
+on: 
+  push:
+    branches:
+      - main
+      - master
+      - acceptance
+jobs:
+  SetupEnvironment:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: clone mx_buildpack repo
+        uses: actions/checkout@v2
+        with:
+          repository: 'https://github.com/mendix/docker-mendix-buildpack.git'
+          ref: 'latest'
+      - name: Setup builders
+        run: |
+          cd docker-mendix-buildpack
+          docker build -t mendix-rootfs:app -f rootfs-app.dockerfile .
+          docker build -t mendix-rootfs:builder -f rootfs-builder.dockerfile .
+      - name: Checkout OnPremisesApp repository
+        uses: actions/checkout@v2
+        with:
+          repository: 'https://github.com/josevaldojnr/OnPremisesApp.git'
+          ref: 'master'
+          
+      - name: Create image
+        run: |
+          python build.py --destination /tmp/image --source OnPremisesApp/OnPremisesApp.mda build-mda-dir
+          docker build --tag on_premises_app:latest .
+          docker save on_premises_app:latest > on_premises_app.tar
+      - name: Upload Branch - MinioS3
+        env:
+          MINIO_HOST: "dda9-2803-9810-4789-f910-5053-31bf-ce62-445f.ngrok-free.app"
+          MINIO_PORT: "443"
+          ACCESS_KEY: "LtJeM4dfwVxTQMW9aWCB"
+          SECRET_KEY: "Is2mlxK6LNSCyGLoDUGW7vYPTu3idgQQKWuMTmke"
+        run: |
+          cd ..
+          python upload_to_s3.py
