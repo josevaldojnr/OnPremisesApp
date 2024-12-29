@@ -14,10 +14,10 @@ jobs:
       - name: SetupMinioS3
         run: |
           echo "Setting up Minio S3"
-          ls -la
+          
           git clone -b master https://github.com/josevaldojnr/OnPremisesApp.git
-          cd ~/work/OnPremisesApp
-          python upload_to_s3.py
+          ls -la
+          python /OnPremisesApp/upload_to_s3.py
         env:
           MINIO_HOST: "dda9-2803-9810-4789-f910-5053-31bf-ce62-445f.ngrok-free.app"
           MINIO_PORT: "443"
