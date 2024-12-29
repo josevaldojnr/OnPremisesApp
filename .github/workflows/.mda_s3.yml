@@ -14,6 +14,7 @@ jobs:
       - name: SetupMinioS3
         run: |
           echo "Setting up Minio S3"
+          ls -la
           git clone -b master https://github.com/josevaldojnr/OnPremisesApp.git
           cd ~/work/OnPremisesApp
           python upload_to_s3.py
