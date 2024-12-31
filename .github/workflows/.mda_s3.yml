@@ -56,7 +56,7 @@ jobs:
           docker build \
           --build-arg ROOTFS_IMAGE=josevaldojnr/mendix-rootfs:app \
           --build-arg BUILDER_ROOTFS_IMAGE=josevaldojnr/mendix-rootfs:builder \
-          -t josevaldojnr/on_premises_app:latest \
+          -t josevaldojnr/mendix_onpremise:latest \
           tmp/image
           docker push josevaldojnr/mendix_onpremise:latest
           
