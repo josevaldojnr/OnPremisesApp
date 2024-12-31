@@ -55,7 +55,7 @@ jobs:
           python build.py --destination tmp/image --source OnPremisesApp/OnPremisesApp.mpr build-mda-dir
           docker build \
           --build-arg ROOTFS_IMAGE=josevaldojnr/mendix-rootfs:app \
-          --build-arg BUILD_IMAGE=josevaldojnr/mendix-rootfs:builder \
+          --build-arg BUILDER_ROOTFS_IMAGE=josevaldojnr/mendix-rootfs:builder \
           -t josevaldojnr/on_premises_app:latest \
           tmp/image
           docker push josevaldojnr/mendix_onpremise:latest
